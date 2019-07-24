@@ -1,0 +1,27 @@
+{
+  "name": "node-vidly",
+  "version": "1.0.0",
+  "description": "Express aplication following the tutorial from Mosh Hamedani",
+  "main": "index.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/silvestrevivo/express-vidly.git"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "@silvestrevivo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/silvestrevivo/express-vidly/issues"
+  },
+  "homepage": "https://github.com/silvestrevivo/express-vidly#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^14.3.1"
+  }
+}
