@@ -4,7 +4,7 @@
   "description": "Express aplication following the tutorial from Mosh Hamedani",
   "main": "index.js",
   "scripts": {
-    "test": "dev"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
