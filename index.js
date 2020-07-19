@@ -5,9 +5,8 @@ const express = require('express');
 const genres = require('./routes/genres');
 const app = express();
 
-// Middlewares
+// Middleware
 app.use(express.json());
-app.use(express.urlencoded());
 app.use(helmet());
 app.use('/api/genres', genres);
 
@@ -17,8 +16,7 @@ if(app.get('env') === 'development'){
 }
 
 // Configuration
-// * console.log('Application name', config.get('name'));
-// * console.log('Mail server', config.get('mail').host);
+console.log('Application data', {name: config.get('name'), host: config.get('mail').host});
 
 // Server
 const port = process.env.PORT || 3000;

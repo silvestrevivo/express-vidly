@@ -1,5 +1,5 @@
 {
-  "name": "node-vidly",
+  "name": "express-vidly",
   "version": "1.0.0",
   "description": "Express aplication following the tutorial from Mosh Hamedani",
   "main": "index.js",
