@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const config = require('config');
@@ -18,6 +19,14 @@ if(app.get('env') === 'development'){
 // Configuration
 console.log('Application data', {name: config.get('name'), host: config.get('mail').host});
 
-// Server
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+// Connect to mongoDB and server
+mongoose.connect('mongodb://localhost/vidly', { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
+  .then(() => {
+    console.log('connected to mongoDB');
+    // Server
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => console.log(`Listening on port ${port}...`));
+  })
+  .catch(err => console.log('Could not connect to MongoDB'))
+
+
