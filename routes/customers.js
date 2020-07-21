@@ -1,28 +1,6 @@
-const mongoose = require('mongoose');
+const {Customer, validate} = require('../models/customer');
 const express = require('express');
-const Joi = require('joi');
 const router = express.Router();
-
-const customersSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 50
-  },
-  isGold: {
-    type: Boolean,
-    default: false,
-  },
-  phone: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 50
-  },
-})
-
-const Customer = mongoose.model('Customer', customersSchema);
 
 // GET requests
 router.get('/', async (req, res) => {
@@ -43,7 +21,7 @@ router.get('/:id', async (req, res) => {
 // POST requests
 router.post('/', async (req, res) => {
   // Validation
-  const { error } = validateCustomer(req.body);
+  const { error } = validate(req.body);
   // 400 => on put is a Bad request
   if (error) return res.status(400).send(error.details[0].message);
   // in post request, 400 means a BAD request
@@ -61,7 +39,7 @@ router.post('/', async (req, res) => {
 // PUT requests
 router.put('/:id', async (req, res) => {
   // Validation
-  const { error } = validateCustomer(req.body);
+  const { error } = validate(req.body);
   // 400 => on put is a Bad request
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -86,16 +64,5 @@ router.delete('/:id', async (req, res) => {
 
   res.send(customer);
 });
-
-
-function validateCustomer(customer) {
-  const schema = {
-    name: Joi.string().min(5).max(50).required(),
-    phone: Joi.string().min(5).max(50).required(),
-    isGold: Joi.boolean(),
-  };
-
-  return Joi.validate(customer, schema);
-}
 
 module.exports = router;
