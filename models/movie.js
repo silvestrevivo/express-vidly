@@ -11,7 +11,7 @@ const Movie = mongoose.model('Movies', new mongoose.Schema({
     maxlength: 255
   },
   genre: {
-    type: genreSchema,
+    type: genreSchema, // to include a genre, we import the schema as variable
     required: true,
   },
   numberInStock: {
@@ -31,7 +31,7 @@ const Movie = mongoose.model('Movies', new mongoose.Schema({
 function validateMovie(movie) {
   const schema = {
     title: Joi.string().min(5).max(50).required(),
-    genreId: Joi.string().required(), // I want only to send the id
+    genreId: Joi.objectId().required(), // I want only to send the id
     numberInStock: Joi.number().min(0).required(),
     dailyRentalRate: Joi.number().min(0).required(),
   };

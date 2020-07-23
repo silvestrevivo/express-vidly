@@ -1,3 +1,5 @@
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -6,6 +8,7 @@ const express = require('express');
 const genres = require('./routes/genres');
 const customers = require('./routes/customers');
 const movies = require('./routes/movies');
+const rentals = require('./routes/rentals');
 const app = express();
 
 // Middleware
@@ -14,6 +17,7 @@ app.use(helmet());
 app.use('/api/genres', genres);
 app.use('/api/customers', customers);
 app.use('/api/movies', movies);
+app.use('/api/rentals', rentals);
 
 if(app.get('env') === 'development'){
   app.use(morgan('tiny'));
