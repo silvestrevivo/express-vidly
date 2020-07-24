@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 
-const User = mongoose.model('User', new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -22,7 +24,16 @@ const User = mongoose.model('User', new mongoose.Schema({
     maxlength: 1024,
     unique: true
   }
-}));
+})
+
+userSchema.methods.generateAuthToken = function(){
+  const token = jwt.sign({ _id: this._id}, config.get('jwtPrivateKey'));
+  // token generator is intrinsic of the creation of user
+  // when we work with refresh token, this privateKey changes too
+  return token;
+}
+
+const User = mongoose.model('User', userSchema);
 
 // Function validation
 function validateUser(user) {
@@ -34,6 +45,8 @@ function validateUser(user) {
 
   return Joi.validate(user, schema);
 }
+
+
 
 exports.User = User;
 exports.validate = validateUser;

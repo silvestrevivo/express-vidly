@@ -1,13 +1,9 @@
 const { User } = require('../models/user');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Joi = require('Joi');
-const config = require('config');
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
-const mongoose = require('mongoose');
-const { valid } = require('joi');
 
 // Register user
 router.post('/', async (req, res) => {
@@ -24,8 +20,7 @@ router.post('/', async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if(!validPassword) res.status(400).send('Invalid password');
 
-  const token = jwt.sign({ _id: user._id}, config.get('jwtPrivateKey'));
-  // when we work with refresh token, this privateKey changes too
+  const token = user.generateAuthToken();
   res.send(token);
 });
 

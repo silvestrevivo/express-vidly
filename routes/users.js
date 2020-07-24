@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
-const mongoose = require('mongoose');
 
 // Register user
 router.post('/', async (req, res) => {
@@ -25,7 +24,8 @@ router.post('/', async (req, res) => {
 
   await user.save();
 
-  res.send(_.pick(user, ['_id', 'name', 'email']));
+  const token = user.generateAuthToken();
+  res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
 });
 
 module.exports = router;
