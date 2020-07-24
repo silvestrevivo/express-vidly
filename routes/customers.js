@@ -2,6 +2,7 @@ const { Customer, validate } = require('../models/customer');
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 // GET requests
 router.get('/', async (req, res) => {
@@ -20,7 +21,7 @@ router.get('/:id', async (req, res) => {
 
 
 // POST requests
-router.post('/', auth, async (req, res) => {
+router.post('/', [auth, admin], async (req, res) => { //only for admins
   // Validation
   const { error } = validate(req.body);
   // 400 => on put is a Bad request
