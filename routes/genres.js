@@ -1,6 +1,7 @@
 const { Genre, validate } = require('../models/genre');
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 
 // GET requests
 router.get('/', async (req, res) => {
@@ -18,7 +19,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST requests
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   // Validation
   const { error } = validate(req.body);
   // 400 => on put is a Bad request
@@ -31,7 +32,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT requests
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth,  async (req, res) => {
   // Validation
   const { error } = validate(req.body);
   // 400 => on put is a Bad request
@@ -48,7 +49,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE requests
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth,  async (req, res) => {
   // Try to find the genre to delete
   const genre = await Genre.findByIdAndRemove(req.params.id);
 

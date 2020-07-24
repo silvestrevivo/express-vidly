@@ -2,6 +2,7 @@ const {Rental, validate} = require('../models/rental');
 const {Movie} = require('../models/movie');
 const {Customer} = require('../models/customer');
 const mongoose = require('mongoose');
+const auth = require('../middleware/auth');
 const Fawn = require('fawn');
 const express = require('express');
 const router = express.Router();
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
   res.send(rentals);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -37,7 +38,6 @@ router.post('/', async (req, res) => {
       dailyRentalRate: movie.dailyRentalRate
     }
   });
-  console.log('rental', rental)
   //* Originally, we had a double operation like this, but it has to be solves with
   //* a transacion thanks to the Fawn package
   // rental = await rental.save();
