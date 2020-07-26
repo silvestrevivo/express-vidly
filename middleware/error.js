@@ -23,6 +23,25 @@ if (process.env.NODE_ENV !== 'production') {
   }));
 }
 
+// If an error happens during the runtime and is not handel
+// this is valid for sync code
+process.on('uncaughtException', (err) => {
+  logger.error('we got an uncaughtException', err.message);
+  process.exit(1);
+})
+
+// this the same but for async operations
+process.on('unhandledRejection', (err) => {
+  logger.error('we got an unhandledRejection', err.message);
+  process.exit(1);
+})
+
+//* this errors can be handle with another winston method => see docs
+// winston.handleExceptions(
+//   new winston.transports.File({filename: 'uncaughtexception.log'})
+// );
+
+// Error function middleware
 module.exports = function(err, req, res, next) {
   logger.error(err.message); // what we send to console
   res.status(500).send('Something failed'); // what we send to client
