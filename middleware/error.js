@@ -11,9 +11,12 @@ const logger = winston.createLogger({
     // - Write all logs with level `info` and below to `combined.log`
     //
     new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'info.log', level: 'info' }),
     new winston.transports.File({ filename: 'combined.log' }),
     // for mongo
-    new winston.transports.MongoDB({ db: 'mongodb://localhost/vidly'})
+    new winston.transports.MongoDB({ db: 'mongodb://localhost/vidly'}),
+    // to share with another developers
+    new winston.transports.Console({ color: true, prettyPrint: true })
   ],
 });
 
@@ -46,3 +49,5 @@ module.exports = function(err, req, res, next) {
   logger.error(err.message); // what we send to console
   res.status(500).send('Something failed'); // what we send to client
 }
+
+module.exports.logger = logger;
