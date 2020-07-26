@@ -1,3 +1,5 @@
+require('express-async-errors');// handling errors middleware
+const error = require('./middleware/error');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
@@ -27,6 +29,11 @@ app.use('/api/movies', movies);
 app.use('/api/rentals', rentals);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+
+// this middleware is to handle the errors and is going to work together with
+// the package express-async-errors
+// has to be placed always at the end of the middleware
+app.use(error);
 
 if(app.get('env') === 'development'){
   app.use(morgan('tiny'));
