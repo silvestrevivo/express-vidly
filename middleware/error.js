@@ -1,4 +1,6 @@
-const winston = require('winston'); // track errors in the console
+const winston = require('winston'); // track errors in the console for server
+require('winston-mongodb');
+
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
@@ -10,6 +12,8 @@ const logger = winston.createLogger({
     //
     new winston.transports.File({ filename: 'error.log', level: 'error' }),
     new winston.transports.File({ filename: 'combined.log' }),
+    // for mongo
+    new winston.transports.MongoDB({ db: 'mongodb://localhost/vidly'})
   ],
 });
 

@@ -44,7 +44,10 @@ if(app.get('env') === 'development'){
 console.log('Application data', {name: config.get('name'), host: config.get('mail').host});
 
 // Connect to mongoDB and server
-mongoose.connect('mongodb://localhost/vidly', { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
+mongoose.connect('mongodb://localhost/vidly',
+  { useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true })
   .then(() => {
     console.log('connected to mongoDB');
     // Server
