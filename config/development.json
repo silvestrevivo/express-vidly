@@ -3,5 +3,6 @@
   "mail": {
     "host": "dev-mail-server"
   },
-  "jwtPrivateKey": "dev_vidly_jwtPrivateKey"
+  "jwtPrivateKey": "dev_vidly_jwtPrivateKey",
+  "db": "mongodb://localhost/vidly"
 }

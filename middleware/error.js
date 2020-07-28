@@ -14,7 +14,7 @@ const logger = winston.createLogger({
     new winston.transports.File({ filename: 'info.log', level: 'info' }),
     new winston.transports.File({ filename: 'combined.log' }),
     // for mongo
-    new winston.transports.MongoDB({ db: 'mongodb://localhost/vidly'}),
+    new winston.transports.MongoDB({ db: 'mongodb://localhost/vidly', level: 'info'}),
     // to share with another developers
     new winston.transports.Console({ color: true, prettyPrint: true })
   ],
