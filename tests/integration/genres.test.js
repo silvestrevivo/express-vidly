@@ -1,3 +1,4 @@
+//MONGODB has to be working locally to run the test
 const request = require('supertest');
 const { Genre } = require('../../models/genre');
 let server;
