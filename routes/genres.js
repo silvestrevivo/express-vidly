@@ -1,6 +1,7 @@
 const { Genre, validate } = require('../models/genre');
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const auth = require('../middleware/auth');
 
 // GET requests
@@ -10,6 +11,9 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+    return res.status(404).send('Invalid ID')
+  }
   // Find genre
   const genre = await Genre.findById(req.params.id)
 
